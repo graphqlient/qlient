@@ -1,0 +1,55 @@
+default_install_hook_types: [ pre-commit, pre-push, commit-msg ]
+
+repos:
+  # update certain features to python 3.8 features
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v3.19.0
+    hooks:
+      - id: pyupgrade
+        args:
+          - --py311-plus
+
+  # useful pre-commit hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-ast
+      - id: check-json
+      - id: check-yaml
+      - id: check-toml
+      - id: check-merge-conflict
+      - id: debug-statements
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: pretty-format-json
+        args:
+          - --autofix
+
+  # code quality analysis
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    # Ruff version.
+    rev: v0.7.4
+    hooks:
+      # Run the linter.
+      - id: ruff
+        args: [ --fix, --ignore=F401, --ignore=E402, --ignore=F403 ]
+      # Run the formatter.
+      - id: ruff-format
+        args: [ --line-length=120 ]
+
+  # static code analysis tool
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.7.10
+    hooks:
+      - id: bandit
+        name: bandit
+        args:
+          - -s=B101,B601
+          - --exclude=.venv,dist,tmp,docs,scripts,packages
+
+  # commit analysis tool
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: v3.31.0
+    hooks:
+      - id: commitizen
+        stages: [ commit-msg ]

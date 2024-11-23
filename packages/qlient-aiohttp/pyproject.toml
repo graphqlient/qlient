@@ -1,0 +1,38 @@
+[project]
+name = "qlient-aiohttp"
+description = "The qlient aiohttp implementation"
+dependencies = [
+    "qlient-core",
+    "aiohttp>=3.11",
+]
+requires-python = ">= 3.11"
+dynamic = ["version"]
+
+[build-system]
+build-backend = "hatchling.build"
+requires = ["hatchling", "hatch-vcs", ]
+
+[tool.rye]
+managed = true
+dev-dependencies = []
+
+[tool.uv.sources.qlient-core]
+workspace = true
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.version]
+source = "vcs"
+
+[build.hooks.vcs]
+version-file = "src/qlient/aiohttp/_version.py"
+
+[tool.hatch.version.raw-options]
+root = "../.."
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/qlient", ]
+
+[tool.hatch.build.hooks.vcs]
+version-file = "src/qlient/aiohttp/_version.py"
