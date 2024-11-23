@@ -1,0 +1,43 @@
+name: Qlient Core - Test
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test:
+
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [ "3.11", "3.12", "3.13" ]
+        os: [ ubuntu-latest, macos-latest, windows-latest ]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        run: uv python install ${{ matrix.python-version }}
+      - name: Install the latest version of rye
+        uses: eifinger/setup-rye@v4
+      - name: Install dependencies
+        run: rye sync
+      - name: Run Pytest
+        run: rye run pytest --cov --cov-report=xml
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+      - name: Upload coverage reports to DeepSource
+        run: |
+          # Install deepsource CLI
+          curl https://deepsource.io/cli | sh
+          
+          # From the root directory, run the report coverage command
+          ./bin/deepsource report --analyzer test-coverage --key python --value-file ./coverage.xml
+
+        env:
+          DEEPSOURCE_DSN: ${{ secrets.DEEPSOURCE_DSN }}

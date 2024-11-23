@@ -17,12 +17,7 @@ from qlient.core import (
     Plugin,
 )
 
-project_dir = pathlib.Path(pathlib.Path().resolve())
-
-if project_dir.is_dir() and project_dir.name == "tests":
-    tests_dir = project_dir
-else:
-    tests_dir = project_dir / "tests"
+tests_dir = pathlib.Path(__file__).resolve().parent
 
 schema_files_dir = tests_dir / "schema_files"
 path_to_swapi_schema = schema_files_dir / "swapi_schema.json"
