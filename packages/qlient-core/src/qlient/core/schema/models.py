@@ -1,4 +1,4 @@
-"""This file contains the graphql schema"""
+"""This file contains the graphql schema."""
 
 import enum
 import logging
@@ -8,7 +8,7 @@ logger = logging.getLogger("qlient")
 
 
 class Kind(enum.Enum):
-    """Enum for the Schema Type Kind"""
+    """Enum for the Schema Type Kind."""
 
     OBJECT = "OBJECT"
     SCALAR = "SCALAR"
@@ -21,7 +21,7 @@ class Kind(enum.Enum):
 
 
 class TypeRef:
-    """Represents a basic graphql Type Reference"""
+    """Represents a basic graphql Type Reference."""
 
     kind: Kind | None
     name: str | None
@@ -30,7 +30,7 @@ class TypeRef:
 
     @classmethod
     def parse(cls, type_ref: Union["TypeRef", dict]) -> "TypeRef":
-        """Parse a single type reference
+        """Parse a single type reference.
 
         Args:
             type_ref: holds the type reference to parse
@@ -46,7 +46,7 @@ class TypeRef:
 
     @classmethod
     def parse_list(cls, type_refs: list[Union["TypeRef", dict]] | None) -> list["TypeRef"]:
-        """Parse a list of type_refs
+        """Parse a list of type_refs.
 
         Args:
             type_refs: holds the type_ref list to parse
@@ -68,11 +68,11 @@ class TypeRef:
         self.type: Optional["Type"] = None  # skipcq: PYL-W0622
 
     def __str__(self) -> str:
-        """Return a simple string representation of the type ref instance"""
+        """Return a simple string representation of the type ref instance."""
         return repr(self)
 
     def __repr__(self) -> str:
-        """Return a more detailed string representation of the type ref instance"""
+        """Return a more detailed string representation of the type ref instance."""
         class_name = self.__class__.__name__
         return f"<{class_name}(" f"kind=`{self.kind.name}`, " f"name=`{self.name}`, " f"ofType={self.of_type_ref}" ")>"
 
@@ -85,7 +85,7 @@ class TypeRef:
         return representation
 
     def infer_type_refs(self, types_dict: dict[str, "Type"]):
-        """Method to recursively infer types down to the deepest type level
+        """Method to recursively infer types down to the deepest type level.
 
         Args:
             types_dict: holds the mapping of type name to type
@@ -96,7 +96,7 @@ class TypeRef:
 
     @property
     def graphql_representation(self) -> str:
-        """Property for the graphql type representation
+        """Property for the graphql type representation.
 
         See docstring of :ref:`__gql__` for more information
 
@@ -128,7 +128,7 @@ class TypeRef:
 
 
 class Input:
-    """Represents a basic graphql Input"""
+    """Represents a basic graphql Input."""
 
     name: str | None
     description: str | None
@@ -137,7 +137,7 @@ class Input:
 
     @classmethod
     def parse(cls, input_value: Union["Input", dict]) -> "Input":
-        """Parse a single input value
+        """Parse a single input value.
 
         Args:
             input_value: holds the input value to parse
@@ -153,7 +153,7 @@ class Input:
 
     @classmethod
     def parse_list(cls, inputs: list[Union["Input", dict]] | None) -> list["Input"]:
-        """Parse a list of inputs
+        """Parse a list of inputs.
 
         Args:
             inputs: holds the input list to parse
@@ -177,17 +177,17 @@ class Input:
         self.default_value = defaultValue
 
     def __str__(self) -> str:
-        """Return a simple string representation of the input instance"""
+        """Return a simple string representation of the input instance."""
         return repr(self)
 
     def __repr__(self) -> str:
-        """Return a more detailed string representation of the input instance"""
+        """Return a more detailed string representation of the input instance."""
         class_name = self.__class__.__name__
         return f"<{class_name}(name=`{self.name}`, type={self.type})>"
 
 
 class Directive:
-    """Represents a basic graphql Directive"""
+    """Represents a basic graphql Directive."""
 
     name: str | None
     description: str | None
@@ -196,7 +196,7 @@ class Directive:
 
     @classmethod
     def parse(cls, directive: Union["Directive", dict]) -> "Directive":
-        """Parse a single directive
+        """Parse a single directive.
 
         Args:
             directive: holds the directive to parse
@@ -212,7 +212,7 @@ class Directive:
 
     @classmethod
     def parse_list(cls, directives: list[Union["Directive", dict]] | None) -> list["Directive"]:
-        """Parse a list of directives
+        """Parse a list of directives.
 
         Args:
             directives: holds the directive list to parse
@@ -236,7 +236,7 @@ class Directive:
 
     @property
     def arg_name_to_arg(self) -> dict[str, Input]:
-        """Property for mapping the argument name to the argument for faster lookups
+        """Property for mapping the argument name to the argument for faster lookups.
 
         Returns:
             A dictionary where the argument name is mapped to the argument itself
@@ -244,17 +244,17 @@ class Directive:
         return {arg.name: arg for arg in self.args}
 
     def __str__(self) -> str:
-        """Return a simple string representation of the directive instance"""
+        """Return a simple string representation of the directive instance."""
         return repr(self)
 
     def __repr__(self) -> str:
-        """Return a more detailed string representation of the directive instance"""
+        """Return a more detailed string representation of the directive instance."""
         class_name = self.__class__.__name__
         return f"<{class_name}(name=`{self.name}`, locations={self.locations})>"
 
 
 class Field:
-    """Represents a basic graphql Field"""
+    """Represents a basic graphql Field."""
 
     name: str | None
     description: str | None
@@ -265,7 +265,7 @@ class Field:
 
     @classmethod
     def parse(cls, field: Union["Field", dict]) -> "Field":
-        """Parse a single field
+        """Parse a single field.
 
         Args:
             field: holds the field to parse
@@ -281,7 +281,7 @@ class Field:
 
     @classmethod
     def parse_list(cls, fields: list[Union["Field", dict]] | None) -> list["Field"]:
-        """Parse a list of fields
+        """Parse a list of fields.
 
         Args:
             fields: holds the field list to parse
@@ -309,17 +309,17 @@ class Field:
         self.deprecation_reason: str | None = deprecationReason
 
     def __str__(self) -> str:
-        """Return a simple string representation of the field instance"""
+        """Return a simple string representation of the field instance."""
         return repr(self)
 
     def __repr__(self) -> str:
-        """Return a more detailed string representation of the field instance"""
+        """Return a more detailed string representation of the field instance."""
         class_name = self.__class__.__name__
         return f"<{class_name}(name=`{self.name}`, type={self.type})>"
 
     @property
     def arg_name_to_arg(self) -> dict[str, Input]:
-        """Property for mapping the argument name to the argument for faster lookups
+        """Property for mapping the argument name to the argument for faster lookups.
 
         Returns:
             A dictionary where the argument name is mapped to the argument itself
@@ -349,21 +349,21 @@ class Field:
 
     @property
     def is_object_kind(self) -> bool:
-        """True if the field type is of kind OBJECT"""
+        """True if the field type is of kind OBJECT."""
         return self.output_type and self.output_type.kind == Kind.OBJECT
 
     @property
     def is_scalar_kind(self) -> bool:
-        """True if the field type is of kind SCALAR"""
+        """True if the field type is of kind SCALAR."""
         return self.output_type and self.output_type.kind == Kind.SCALAR
 
 
 class EnumValue:
-    """Represents a basic graphql enum value"""
+    """Represents a basic graphql enum value."""
 
     @classmethod
     def parse(cls, enum_value: Union["EnumValue", dict]) -> "EnumValue":
-        """Parse a single field
+        """Parse a single field.
 
         Args:
             enum_value: holds the field to parse
@@ -379,7 +379,7 @@ class EnumValue:
 
     @classmethod
     def parse_list(cls, enum_values: list[Union["EnumValue", dict]] | None) -> list["EnumValue"]:
-        """Parse a list of enum values
+        """Parse a list of enum values.
 
         Args:
             enum_values: holds the list of enum values to parse
@@ -402,17 +402,17 @@ class EnumValue:
         self.deprecation_reason: str | None = deprecationReason
 
     def __str__(self) -> str:
-        """Return a simple string representation of the enum value instance"""
+        """Return a simple string representation of the enum value instance."""
         return repr(self)
 
     def __repr__(self) -> str:
-        """Return a more detailed string representation of the enum value instance"""
+        """Return a more detailed string representation of the enum value instance."""
         class_name = self.__class__.__name__
         return f"<{class_name}(name=`{self.name}`)>"
 
 
 class Type:
-    """Represents a basic graphql Type"""
+    """Represents a basic graphql Type."""
 
     kind: Kind | None
     name: str | None
@@ -425,7 +425,7 @@ class Type:
 
     @classmethod
     def parse(cls, type_value: Union["Type", dict]) -> "Type":
-        """Parse a single field
+        """Parse a single field.
 
         Args:
             type_value: holds the field to parse
@@ -488,7 +488,7 @@ class Type:
 
     @property
     def field_name_to_field(self) -> dict[str, Field]:
-        """Property for mapping the field name to the field for faster lookups
+        """Property for mapping the field name to the field for faster lookups.
 
         Returns:
             A dictionary where the field name is mapped to the field itself
@@ -499,10 +499,10 @@ class Type:
         }
 
     def __str__(self) -> str:
-        """Return a simple string representation of the type instance"""
+        """Return a simple string representation of the type instance."""
         return repr(self)
 
     def __repr__(self) -> str:
-        """Return a more detailed string representation of the type instance"""
+        """Return a more detailed string representation of the type instance."""
         class_name = self.__class__.__name__
         return f"<{class_name}(name=`{self.name}`)>"

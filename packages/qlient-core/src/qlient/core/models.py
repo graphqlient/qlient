@@ -1,4 +1,4 @@
-"""This module contains the qlient models"""
+"""This module contains the qlient models."""
 
 from typing import Any, Optional
 
@@ -94,7 +94,7 @@ class PreparedDirective:
         self.schema_directive = schema_directive
 
     def prepare_name(self, name: str | None):
-        """Method to prepare the name of this directive
+        """Method to prepare the name of this directive.
 
         Args:
             name: holds the name of this directive
@@ -107,7 +107,7 @@ class PreparedDirective:
         return self.__gql__()
 
     def __gql__(self) -> str:
-        """Method to create a graphql representation of this directive
+        """Method to create a graphql representation of this directive.
 
         Returns:
             a string with the graphql representation of this directive
@@ -127,8 +127,8 @@ class PreparedDirective:
 class Field:
     """Class to create a field in the selection.
 
-    Use this class for more customization.
-    If you only make a simple selection, I highly recommend only using the Fields class.
+    Use this class for more customization. If you only make a simple selection, I highly recommend only using the Fields
+    class.
     """
 
     def __init__(
@@ -162,7 +162,7 @@ class Field:
         parent_type: SchemaType,
         schema: Schema,
     ) -> "PreparedField":
-        """Method to convert this field into a PreparedField
+        """Method to convert this field into a PreparedField.
 
         Args:
             parent_type: holds the parent type of this Field
@@ -220,7 +220,7 @@ class PreparedField:
         directive: Directive | None = None,
         sub_fields: Any | None = None,
     ):
-        """Method to prepare this instance
+        """Method to prepare this instance.
 
         Args:
             parent_type: holds the parent schema type of this field
@@ -236,7 +236,7 @@ class PreparedField:
         self.prepare_sub_fields(schema, sub_fields)
 
     def prepare_name(self, name: str | None, alias: str | None):
-        """Method to prepare the name including alias of this field
+        """Method to prepare the name including alias of this field.
 
         Args:
             name: holds the name of this field
@@ -262,7 +262,7 @@ class PreparedField:
         self.field_type = schema_field_type
 
     def prepare_directive(self, schema: Schema, directive: Directive | None):
-        """Method to prepare the directive of this field
+        """Method to prepare the directive of this field.
 
         Args:
             schema: holds the schema to used (needed to prepare the directive)
@@ -277,7 +277,7 @@ class PreparedField:
         schema: Schema,
         sub_fields: Optional["Fields"],
     ):
-        """Method to prepare the subfields selection
+        """Method to prepare the subfields selection.
 
         Args:
             schema: holds the schema that is being used by the client
@@ -289,7 +289,7 @@ class PreparedField:
         self.sub_fields = sub_fields.prepare(new_parent_type, schema)
 
     def __gql__(self) -> str:
-        """Method to create a graphql representation of this field
+        """Method to create a graphql representation of this field.
 
         Returns:
             a string with the graphql representation of this field
@@ -311,10 +311,9 @@ class PreparedField:
 
 
 class Fields:
-    """Class to create a selection of multiple fields
+    """Class to create a selection of multiple fields.
 
-    Use this class to create a selection of multiple fields
-    or combine multiple instances.
+    Use this class to create a selection of multiple fields or combine multiple instances.
     """
 
     @classmethod
@@ -323,7 +322,7 @@ class Fields:
         args: tuple[Any],
         fields: dict[int, Field] = None,
     ) -> dict[int, Field]:
-        """Class method to parse given *args
+        """Class method to parse given *args.
 
         Args:
             args: holds the given *args
@@ -361,7 +360,7 @@ class Fields:
         kwargs: dict[Any, Any],
         fields: dict[int, Field] = None,
     ) -> dict[int, Field]:
-        """Class method to parse given **kwargs
+        """Class method to parse given **kwargs.
 
         Args:
             kwargs: holds the given **kwargs
@@ -402,7 +401,7 @@ class Fields:
         return self.__add__(other)
 
     def __add__(self, other) -> "Fields":
-        """Add another object to this fields
+        """Add another object to this fields.
 
         Args:
             other: the object to add
@@ -440,7 +439,7 @@ class Fields:
         parent_type: SchemaType,
         schema: Schema,
     ) -> "PreparedFields":
-        """Method to convert this fields instance into a PreparedFields instance
+        """Method to convert this fields instance into a PreparedFields instance.
 
         Args:
             parent_type: holds the parent type of this Field
@@ -506,7 +505,7 @@ class PreparedFields:
         ]
 
     def __gql__(self) -> str:
-        """Method to create a graphql representation of this fields instance
+        """Method to create a graphql representation of this fields instance.
 
         Returns:
             a string with the graphql representation of this fields instance
@@ -523,7 +522,7 @@ class PreparedFields:
 
 
 class GraphQLRequest:
-    """Represents the graphql request"""
+    """Represents the graphql request."""
 
     def __init__(
         self,
@@ -543,7 +542,7 @@ class GraphQLRequest:
 
 
 class GraphQLSubscriptionRequest(GraphQLRequest):
-    """Represents a graphql subscription request"""
+    """Represents a graphql subscription request."""
 
     subscription_id: str
     options: dict[str, Any]
@@ -557,7 +556,7 @@ class GraphQLSubscriptionRequest(GraphQLRequest):
 
 
 class GraphQLResponse:
-    """Represents the graphql response type"""
+    """Represents the graphql response type."""
 
     def __init__(
         self,

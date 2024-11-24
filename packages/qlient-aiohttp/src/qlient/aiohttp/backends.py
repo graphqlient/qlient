@@ -34,7 +34,7 @@ async def close_all():
 
 
 class AIOHTTPBackend(AsyncBackend):
-    """The AIOHTTP Backend
+    """The AIOHTTP Backend.
 
     Examples:
         >>> backend = AIOHTTPBackend("https://swapi-graphql.netlify.app/.netlify/functions/index")
@@ -43,7 +43,7 @@ class AIOHTTPBackend(AsyncBackend):
 
     @classmethod
     def generate_subscription_id(cls) -> str:
-        """Class method to generate unique subscription ids
+        """Class method to generate unique subscription ids.
 
         Returns:
             A unique subscription id
@@ -52,7 +52,7 @@ class AIOHTTPBackend(AsyncBackend):
 
     @staticmethod
     def make_payload(request: GraphQLRequest) -> dict[str, Any]:
-        """Static method for generating the request payload
+        """Static method for generating the request payload.
 
         Args:
             request: holds the graphql request
@@ -92,7 +92,7 @@ class AIOHTTPBackend(AsyncBackend):
     @property
     @asynccontextmanager
     async def session(self) -> aiohttp.ClientSession:
-        """Property to get the session to use for requests
+        """Property to get the session to use for requests.
 
         If the session is pre-defined, use that session,
         otherwise create a new aiohttp.ClientSession.
@@ -166,7 +166,6 @@ class AIOHTTPBackend(AsyncBackend):
             request: holds the request to execute
 
         Returns:
-
         """
         payload = self.make_payload(request)
         async with self.session as session:

@@ -1,4 +1,4 @@
-"""The client implementation for aiohttp"""
+"""The client implementation for aiohttp."""
 
 from qlient.aiohttp.backends import AIOHTTPBackend
 from qlient.core import AsyncClient, Backend

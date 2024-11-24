@@ -46,7 +46,7 @@ class Client:
 
     @property
     def schema(self) -> Schema:
-        """Property to lazy load the schema
+        """Property to lazy load the schema.
 
         Returns:
             The schema to inspect
@@ -60,7 +60,7 @@ class Client:
 
     @property
     def query(self) -> QueryServiceProxy:
-        """Property to lazy load the query service proxy
+        """Property to lazy load the query service proxy.
 
         Returns:
             The default query service proxy instance
@@ -72,7 +72,7 @@ class Client:
 
     @property
     def mutation(self) -> MutationServiceProxy:
-        """Property to lazy load the mutation service proxy
+        """Property to lazy load the mutation service proxy.
 
         Returns:
             The default mutation service proxy instance
@@ -84,7 +84,7 @@ class Client:
 
     @property
     def subscription(self) -> SubscriptionServiceProxy:
-        """Property to lazy load the subscription service proxy
+        """Property to lazy load the subscription service proxy.
 
         Returns:
             The default subscription service proxy instance
@@ -95,12 +95,12 @@ class Client:
         return self._subscription_service
 
     def __str__(self) -> str:
-        """Return a simple string representation of the client"""
+        """Return a simple string representation of the client."""
         class_name = self.__class__.__name__
         return f"{class_name}(backend={self.backend})"
 
     def __repr__(self) -> str:
-        """Return a detailed string representation of the client"""
+        """Return a detailed string representation of the client."""
         class_name = self.__class__.__name__
         props = ", ".join(
             [
@@ -116,7 +116,7 @@ class AsyncClient(Client):
 
     @property
     def schema(self) -> Schema:
-        """Property to lazy load the schema
+        """Property to lazy load the schema.
 
         Returns:
             The schema to inspect
@@ -127,7 +127,7 @@ class AsyncClient(Client):
 
     @property
     def query(self) -> AsyncQueryServiceProxy:
-        """Property to lazy load the query service proxy
+        """Property to lazy load the query service proxy.
 
         Returns:
             The default query service proxy instance
@@ -139,7 +139,7 @@ class AsyncClient(Client):
 
     @property
     def mutation(self) -> AsyncMutationServiceProxy:
-        """Property to lazy load the mutation service proxy
+        """Property to lazy load the mutation service proxy.
 
         Returns:
             The default mutation service proxy instance
@@ -151,7 +151,7 @@ class AsyncClient(Client):
 
     @property
     def subscription(self) -> AsyncSubscriptionServiceProxy:
-        """Property to lazy load the subscription service proxy
+        """Property to lazy load the subscription service proxy.
 
         Returns:
             The default subscription service proxy instance
