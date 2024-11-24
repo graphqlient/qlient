@@ -2,11 +2,11 @@ from qlient.core.models import GraphQLRequest, GraphQLResponse
 
 
 class Plugin:
-    """Base plugin"""
+    """Base plugin."""
 
     # skipcq: PYL-R0201
     def pre(self, request: GraphQLRequest) -> GraphQLRequest:
-        """Override to make changes to the request before giving it to the backend
+        """Override to make changes to the request before giving it to the backend.
 
         Args:
             request: holds the request
@@ -18,7 +18,7 @@ class Plugin:
 
     # skipcq: PYL-R0201
     def post(self, response: GraphQLResponse) -> GraphQLResponse:
-        """Override to update the response when the result is in
+        """Override to update the response when the result is in.
 
         Args:
             response: holds the response
@@ -30,7 +30,7 @@ class Plugin:
 
 
 def apply_pre(plugins: list[Plugin], request: GraphQLRequest) -> GraphQLRequest:
-    """Helper function to apply all pre plugins
+    """Helper function to apply all pre plugins.
 
     Args:
         plugins: the list of plugins to apply
@@ -45,7 +45,7 @@ def apply_pre(plugins: list[Plugin], request: GraphQLRequest) -> GraphQLRequest:
 
 
 def apply_post(plugins: list[Plugin], response: GraphQLResponse) -> GraphQLResponse:
-    """Helper function to apply all post plugins
+    """Helper function to apply all post plugins.
 
     Args:
         plugins: the list of plugins to apply

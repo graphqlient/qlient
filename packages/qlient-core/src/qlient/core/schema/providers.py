@@ -1,4 +1,4 @@
-"""This module contains different schema providers"""
+"""This module contains different schema providers."""
 
 import abc
 import io
@@ -15,10 +15,9 @@ logger = logging.getLogger("qlient")
 
 
 class SchemaProvider(abc.ABC):
-    """Super class for all schema providers
+    """Super class for all schema providers.
 
-    This makes it easy to create your own schema provider anytime.
-    See the implementations below for a quick overview.
+    This makes it easy to create your own schema provider anytime. See the implementations below for a quick overview.
     """
 
     @abc.abstractmethod
@@ -48,7 +47,7 @@ class FileSchemaProvider(SchemaProvider):
         self.file = file
 
     def load_schema(self) -> Schema:
-        """Method to load the schema from the local file
+        """Method to load the schema from the local file.
 
         Returns:
             the schema from the file
@@ -63,8 +62,7 @@ class FileSchemaProvider(SchemaProvider):
 class BackendSchemaProvider(SchemaProvider):
     """Schema provider to read the schema using the backend.
 
-    This provider uses an introspection query
-    to load the schema directly from the backend.
+    This provider uses an introspection query to load the schema directly from the backend.
 
     NOTE! This only works when the graphql backend has allowed introspection.
     """
@@ -167,7 +165,7 @@ class BackendSchemaProvider(SchemaProvider):
         self.backend: Backend = backend
 
     def load_schema(self) -> Schema:
-        """Send the introspection query to the backend and return the given schema
+        """Send the introspection query to the backend and return the given schema.
 
         Returns:
             the given schema from the backend.
@@ -185,14 +183,13 @@ class BackendSchemaProvider(SchemaProvider):
 class AsyncBackendSchemaProvider(BackendSchemaProvider):
     """Schema provider to read the schema asynchronously using the backend.
 
-    This provider uses an introspection query
-    to load the schema directly from the backend.
+    This provider uses an introspection query to load the schema directly from the backend.
 
     NOTE! This only works when the graphql backend has allowed introspection.
     """
 
     async def load_schema(self) -> Schema:  # skipcq: PYL-W0236
-        """Send the introspection query to the backend and return the given schema
+        """Send the introspection query to the backend and return the given schema.
 
         Returns:
             the given schema from the backend.

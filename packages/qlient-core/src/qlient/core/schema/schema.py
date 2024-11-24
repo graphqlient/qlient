@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 
 class Schema:
-    """Represents a graphql schema"""
+    """Represents a graphql schema."""
 
     def __init__(
         self,
@@ -41,11 +41,11 @@ class Schema:
         return self.types_registry.get(key)
 
     def __str__(self) -> str:
-        """Return a simple string representation of the schema instance"""
+        """Return a simple string representation of the schema instance."""
         return repr(self)
 
     def __repr__(self) -> str:
-        """Return a more detailed string representation of the schema instance"""
+        """Return a more detailed string representation of the schema instance."""
         class_name = self.__class__.__name__
         return (
             f"<{class_name}("

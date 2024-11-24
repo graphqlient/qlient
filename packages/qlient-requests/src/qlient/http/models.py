@@ -1,4 +1,4 @@
-"""This module contains the specific qlient.http models"""
+"""This module contains the specific qlient.http models."""
 
 from typing import Optional
 from collections.abc import AsyncGenerator
@@ -17,7 +17,7 @@ from qlient.http.settings import HTTPSettings
 
 
 class GraphQLSubscriptionResponse(GraphQLResponse):
-    """Model for a subscription response"""
+    """Model for a subscription response."""
 
     request: GraphQLSubscriptionRequest
 
@@ -37,7 +37,7 @@ class GraphQLSubscriptionResponse(GraphQLResponse):
         super().__init__(request, self.message_generator())
 
     def message_generator(self) -> AsyncGenerator:
-        """The message generator
+        """The message generator.
 
         This method yields incoming subscription messages from the websocket.
 
@@ -62,7 +62,7 @@ class GraphQLSubscriptionResponse(GraphQLResponse):
             yield GraphQLResponse(self.request, data["payload"])
 
     def stop(self):
-        """Method to end the subscription
+        """Method to end the subscription.
 
         This sends one last stop
         """
@@ -71,7 +71,7 @@ class GraphQLSubscriptionResponse(GraphQLResponse):
         self.ws.send(self.settings.json_dumps({"type": STOP, "id": self.request.subscription_id}))
 
     def close(self):
-        """Method to close the websocket
+        """Method to close the websocket.
 
         This will stop the subscription before closing the socket.
         """

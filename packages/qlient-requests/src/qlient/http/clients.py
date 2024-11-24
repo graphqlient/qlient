@@ -1,4 +1,4 @@
-"""This file contains the graphql http client"""
+"""This file contains the graphql http client."""
 
 import logging
 from typing import Union
@@ -12,7 +12,7 @@ logger = logging.getLogger("qlient")
 
 
 class HTTPClient(Client):
-    """This class represents the http client
+    """This class represents the http client.
 
     Examples:
         Basic example

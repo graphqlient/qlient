@@ -1,4 +1,4 @@
-"""This file contains the graphql schema parser functions"""
+"""This file contains the graphql schema parser functions."""
 
 from qlient.core._types import RawSchema
 from qlient.core.exceptions import NoTypesFound
@@ -6,7 +6,7 @@ from qlient.core.schema.models import Directive, Type
 
 
 class ParseResult:
-    """Represents a parsed graphql schema"""
+    """Represents a parsed graphql schema."""
 
     def __init__(
         self,
@@ -24,21 +24,21 @@ class ParseResult:
 
 
 def extract_type(type_name: str | None, types: dict[str, Type]) -> Type | None:
-    """Extract a type from all types"""
+    """Extract a type from all types."""
     if not type_name:
         return None
     return types.get(type_name)
 
 
 def extract_query_type(schema: dict, types: dict[str, Type] | None) -> Type | None:
-    """Extract the name of the query type from the schema"""
+    """Extract the name of the query type from the schema."""
     query_type: dict | None = schema.get("queryType")
     query_type_name: str | None = query_type.get("name")
     return extract_type(query_type_name, types)
 
 
 def extract_mutation_type(schema: dict, types: dict[str, Type] | None) -> Type | None:
-    """Extract the name of the mutation type from the schema"""
+    """Extract the name of the mutation type from the schema."""
     mutation_type: dict | None = schema.get("mutationType")
     if not mutation_type:
         return None
@@ -47,7 +47,7 @@ def extract_mutation_type(schema: dict, types: dict[str, Type] | None) -> Type |
 
 
 def extract_subscription_type(schema: dict, types: dict[str, Type] | None) -> Type | None:
-    """Extract the name of the subscription type from the schema"""
+    """Extract the name of the subscription type from the schema."""
     subscription_type: dict | None = schema.get("subscriptionType")
     if not subscription_type:
         return None
@@ -56,7 +56,7 @@ def extract_subscription_type(schema: dict, types: dict[str, Type] | None) -> Ty
 
 
 def parse_types(schema: dict) -> dict[str, Type]:
-    """Parse/Extract all types from the schema
+    """Parse/Extract all types from the schema.
 
     The types are required.
     Everything in GraphQL is a type.
@@ -86,7 +86,7 @@ def parse_types(schema: dict) -> dict[str, Type]:
 
 
 def parse_directives(schema: dict) -> dict[str, Directive] | None:
-    """Parse the directives of the schema
+    """Parse the directives of the schema.
 
     A directive is an identifier preceded by a @ character,
     optionally followed by a list of named arguments,
@@ -111,7 +111,7 @@ def parse_directives(schema: dict) -> dict[str, Directive] | None:
 
 
 def parse_schema(schema: RawSchema) -> ParseResult:
-    """Parse the given graphql schema and return the parsed result
+    """Parse the given graphql schema and return the parsed result.
 
     Args:
         schema: holds the raw schema as a dictionary

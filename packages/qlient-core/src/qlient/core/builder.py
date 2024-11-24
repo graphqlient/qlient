@@ -1,4 +1,4 @@
-"""This file contains the query builder and fields"""
+"""This file contains the query builder and fields."""
 
 from collections.abc import Iterable
 from typing import Any, Union
@@ -15,11 +15,11 @@ _AnyField = Union[Fields, Field, Iterable[Union[Field, str]], list[Union[Field, 
 
 
 class GQLQueryBuilder:
-    """Class to programmatically build graphql queries"""
+    """Class to programmatically build graphql queries."""
 
     @staticmethod
     def remove_duplicate_spaces(query: str) -> str:
-        """Static method to remove duplicate spaces from a string
+        """Static method to remove duplicate spaces from a string.
 
         Args:
             query: holds the string from which to drop the duplicate white spaces
@@ -31,7 +31,7 @@ class GQLQueryBuilder:
 
     @staticmethod
     def build_input(variables: dict[str, Any], initial_str: str) -> str:
-        """Static method to build the input with variables
+        """Static method to build the input with variables.
 
         Args:
             variables: holds a dictionary with the var key mapped to the var value
@@ -80,7 +80,7 @@ class GQLQueryBuilder:
         self.fields_field: str | None = None
 
     def fields(self, fields: str) -> "GQLQueryBuilder":
-        """Method to register a field selection
+        """Method to register a field selection.
 
         Do not put leading and trailing curly brackets
 
@@ -93,7 +93,7 @@ class GQLQueryBuilder:
         return self
 
     def action(self, action: str, variables: dict[str, Any] = None) -> "GQLQueryBuilder":
-        """Method to register the graphql action/resolver you wish to execute
+        """Method to register the graphql action/resolver you wish to execute.
 
         Args:
             action: holds the graphql action/resolver (e.g. getUser)
@@ -107,7 +107,7 @@ class GQLQueryBuilder:
         return self
 
     def operation(self, operation: str, name: str = "", variables: dict[str, Any] = None) -> "GQLQueryBuilder":
-        """Method to register the graphql operation
+        """Method to register the graphql operation.
 
         Args:
             operation: holds the operation type (query, mutation, subscription)
@@ -125,7 +125,7 @@ class GQLQueryBuilder:
         return self
 
     def build(self) -> str:
-        """Method to build the graphql query
+        """Method to build the graphql query.
 
         Returns:
             the complete graphql query with operation, action and fields.
@@ -141,15 +141,13 @@ class GQLQueryBuilder:
 
 
 class RequestBuilder:
-    """Class that represents a typed GraphQL Query Builder
+    """Class that represents a typed GraphQL Query Builder.
 
-    The typed graphql builder takes the operation type,
-    operation field, schema and settings
-    as input arguments to ensure type safety in the graphql query.
+    The typed graphql builder takes the operation type, operation field, schema and settings as input arguments to
+    ensure type safety in the graphql query.
 
-    The operation_field is the action that you are trying to execute.
-    Say you want to register a new user with your graphql mutation "registerUser".
-    Then a "registerUser" field will be present in the schema.
+    The operation_field is the action that you are trying to execute. Say you want to register a new user with your
+    graphql mutation "registerUser". Then a "registerUser" field will be present in the schema.
     """
 
     def __init__(
@@ -173,12 +171,12 @@ class RequestBuilder:
         self._inputs: dict[str, JSON] | None = None
 
     def context(self, context: GraphQLContextType) -> "RequestBuilder":
-        """Method to set the request context"""
+        """Method to set the request context."""
         self._context = context
         return self
 
     def root(self, root: GraphQLRootType) -> "RequestBuilder":
-        """Method to set the request root"""
+        """Method to set the request root."""
         self._root = root
         return self
 
@@ -186,17 +184,17 @@ class RequestBuilder:
         self,
         fields: _AnyField,
     ) -> "RequestBuilder":
-        """Method to set the field selection"""
+        """Method to set the field selection."""
         self._fields = fields
         return self
 
     def variables(self, **inputs: JSON) -> "RequestBuilder":
-        """Method to set the request variables"""
+        """Method to set the request variables."""
         self._inputs = inputs
         return self
 
     def build(self) -> GraphQLRequest:
-        """Method to build the graphql query string from all given inputs
+        """Method to build the graphql query string from all given inputs.
 
         Returns:
             the graphql query string

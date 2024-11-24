@@ -1,4 +1,4 @@
-"""This file contains the settings that can be overwritten in the qlient Client"""
+"""This file contains the settings that can be overwritten in the qlient Client."""
 
 import json
 from typing import Any
@@ -8,7 +8,7 @@ from qlient.core import Settings
 
 
 class HTTPSettings(Settings):
-    """Class that represents the settings that can be adjusted to your liking"""
+    """Class that represents the settings that can be adjusted to your liking."""
 
     def __init__(
         self, json_loads: Callable[[str], Any] = json.loads, json_dumps: Callable[..., str] = json.dumps, **kwargs

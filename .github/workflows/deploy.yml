@@ -1,0 +1,74 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+
+      - name: Set up Python 3
+        run: uv python install 3.12
+
+      - name: Install the latest version of rye
+        uses: eifinger/setup-rye@v4
+
+      - name: Install dependencies
+        run: rye sync
+
+      - name: Install dependencies
+        run: rye install git-cliff --force
+
+      - name: Determine next version
+        id: get_version
+        run: |
+          NEW_VERSION=$(rye run git-cliff --bumped-version)
+          echo "QLIENT_NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
+
+      - name: Generate a changelog
+        uses: orhun/git-cliff-action@v4
+        id: git-cliff
+        with:
+          config: cliff.toml
+          args: --verbose --tag="$QLIENT_NEW_VERSION" --unreleased
+        env:
+          OUTPUT: CHANGELOG.md
+
+      - name: Build package
+        run: rye build --all --clean
+
+      - name: Create and push the new tag
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git tag $QLIENT_NEW_VERSION
+          git push origin $QLIENT_NEW_VERSION
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: $QLIENT_NEW_VERSION
+          name: $QLIENT_NEW_VERSION
+          draft: true
+          prerelease: true
+          body_path: CHANGELOG.md
+          files: |
+            dist/*
+          generate_release_notes: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

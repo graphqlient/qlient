@@ -1,4 +1,4 @@
-"""This module contains the http backend"""
+"""This module contains the http backend."""
 
 import logging
 import uuid
@@ -29,7 +29,7 @@ logger = logging.getLogger("qlient")
 
 
 class HTTPBackend(Backend):
-    """The HTTPBackend
+    """The HTTPBackend.
 
     Examples:
         >>> backend = HTTPBackend("https://swapi-graphql.netlify.app/.netlify/functions/index")
@@ -38,7 +38,7 @@ class HTTPBackend(Backend):
 
     @staticmethod
     def adapt_ws_endpoint(endpoint: str) -> str:
-        """Adapt the normal http endpoint to a websocket endpoint
+        """Adapt the normal http endpoint to a websocket endpoint.
 
         Args:
             endpoint: holds the http endpoint. (e.g. "http[s]://...")
@@ -55,7 +55,7 @@ class HTTPBackend(Backend):
 
     @classmethod
     def generate_subscription_id(cls) -> str:
-        """Class method to generate unique subscription ids
+        """Class method to generate unique subscription ids.
 
         Returns:
             A unique subscription id
@@ -64,7 +64,7 @@ class HTTPBackend(Backend):
 
     @staticmethod
     def make_payload(request: GraphQLRequest) -> dict[str, Any]:
-        """Static method for generating the request payload
+        """Static method for generating the request payload.
 
         Args:
             request: holds the graphql request

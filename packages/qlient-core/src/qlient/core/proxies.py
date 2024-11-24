@@ -1,4 +1,4 @@
-"""This module contains the operation proxy instances"""
+"""This module contains the operation proxy instances."""
 
 import abc
 import itertools
@@ -22,7 +22,7 @@ from qlient.core.settings import Settings
 
 
 class OperationProxy:
-    """The operation proxy"""
+    """The operation proxy."""
 
     operation_type: str
     field: SchemaField
@@ -42,12 +42,12 @@ class OperationProxy:
             self.__doc__ = field.description
 
     def __str__(self) -> str:
-        """Return a simple string representation of this instance"""
+        """Return a simple string representation of this instance."""
         class_name = self.__class__.__name__
         return f"{class_name}(`{self.field.name}`)"
 
     def __repr__(self) -> str:
-        """Return a detailed string representation of this instance"""
+        """Return a detailed string representation of this instance."""
         class_name = self.__class__.__name__
         return f"{class_name}(field={self.field})"
 
@@ -58,7 +58,7 @@ class OperationProxy:
         _root: GraphQLRootType = None,
         **inputs,
     ) -> GraphQLRequest:
-        """Method to create the request instance
+        """Method to create the request instance.
 
         Args:
             _fields: holds the selected fields
@@ -92,7 +92,7 @@ class OperationProxy:
 
 
 class AsyncOperationProxy(OperationProxy):
-    """The async operation proxy"""
+    """The async operation proxy."""
 
     # skipcq: PYL-W0236
     async def __call__(
@@ -105,14 +105,14 @@ class AsyncOperationProxy(OperationProxy):
 
 
 class QueryProxy(OperationProxy):
-    """Represents the operation proxy for queries"""
+    """Represents the operation proxy for queries."""
 
     def __init__(self, proxy: "QueryServiceProxy", operation_field: SchemaField):
         super().__init__("query", operation_field, proxy)
 
 
 class AsyncQueryProxy(QueryProxy, AsyncOperationProxy):
-    """Represents the async operation proxy for queries"""
+    """Represents the async operation proxy for queries."""
 
     def __init__(self, proxy: "AsyncQueryServiceProxy", operation_field: SchemaField):
         # skipcq: PYL-E1003
@@ -120,14 +120,14 @@ class AsyncQueryProxy(QueryProxy, AsyncOperationProxy):
 
 
 class MutationProxy(OperationProxy):
-    """Represents the operation proxy for mutations"""
+    """Represents the operation proxy for mutations."""
 
     def __init__(self, proxy: "MutationServiceProxy", operation_field: SchemaField):
         super().__init__("mutation", operation_field, proxy)
 
 
 class AsyncMutationProxy(MutationProxy, AsyncOperationProxy):
-    """Represents the async operation proxy for queries"""
+    """Represents the async operation proxy for queries."""
 
     def __init__(self, proxy: "AsyncMutationServiceProxy", operation_field: SchemaField):
         # skipcq: PYL-E1003
@@ -135,7 +135,7 @@ class AsyncMutationProxy(MutationProxy, AsyncOperationProxy):
 
 
 class SubscriptionProxy(OperationProxy):
-    """Represents the operation proxy for subscriptions"""
+    """Represents the operation proxy for subscriptions."""
 
     def __init__(self, proxy: "SubscriptionServiceProxy", operation_field: SchemaField):
         super().__init__("subscription", operation_field, proxy)
@@ -149,7 +149,7 @@ class SubscriptionProxy(OperationProxy):
         _options: dict[str, Any] = None,
         **inputs,
     ) -> GraphQLSubscriptionRequest:
-        """Method to create the request instance
+        """Method to create the request instance.
 
         Args:
             _fields: holds the selected fields
@@ -176,7 +176,7 @@ class SubscriptionProxy(OperationProxy):
 
 
 class AsyncSubscriptionProxy(SubscriptionProxy, AsyncOperationProxy):
-    """Represents the async operation proxy for queries"""
+    """Represents the async operation proxy for queries."""
 
     def __init__(self, proxy: "AsyncSubscriptionServiceProxy", operation_field: SchemaField):
         # skipcq: PYL-E1003
@@ -184,7 +184,7 @@ class AsyncSubscriptionProxy(SubscriptionProxy, AsyncOperationProxy):
 
 
 class ServiceProxy(abc.ABC):
-    """Base class for all service proxies"""
+    """Base class for all service proxies."""
 
     backend: Backend
     settings: Settings
@@ -250,23 +250,23 @@ class ServiceProxy(abc.ABC):
         return list(itertools.chain(dir(super()), self.operations))
 
     def __str__(self) -> str:
-        """Return a simple string representation of this instance"""
+        """Return a simple string representation of this instance."""
         class_name = self.__class__.__name__
         return f"{class_name}(bindings={len(self.operations)})"
 
     def __repr__(self) -> str:
-        """Return a detailed string representation of this instance"""
+        """Return a detailed string representation of this instance."""
         class_name = self.__class__.__name__
         return f"{class_name}(bindings={self.supported_bindings})"
 
     @property
     def supported_bindings(self) -> list[str]:
-        """Property to list the supported bindings"""
+        """Property to list the supported bindings."""
         return list(self.operations.keys())
 
     @abc.abstractmethod
     def get_bindings(self) -> dict[str, OperationProxy]:
-        """Abstract base method to get the service bindings"""
+        """Abstract base method to get the service bindings."""
 
     def send(self, request: GraphQLRequest) -> GraphQLResponse:
         """The method that sends the request through plugins onto the backend.
@@ -284,11 +284,11 @@ class ServiceProxy(abc.ABC):
 
     @abc.abstractmethod
     def execute(self, request: GraphQLRequest) -> GraphQLResponse:
-        """Abstract base method that sends the query to the backend"""
+        """Abstract base method that sends the query to the backend."""
 
 
 class AsyncServiceProxy(ServiceProxy, abc.ABC):
-    """Base class for all async service proxies"""
+    """Base class for all async service proxies."""
 
     # skipcq: PYL-W0236
     async def send(self, request: GraphQLRequest) -> GraphQLResponse:
@@ -309,16 +309,16 @@ class AsyncServiceProxy(ServiceProxy, abc.ABC):
     async def execute(  # skipcq: PYL-W0236
         self, request: GraphQLRequest
     ) -> GraphQLResponse:
-        """Abstract base method that sends the query to the backend"""
+        """Abstract base method that sends the query to the backend."""
 
 
 class QueryServiceProxy(ServiceProxy):
-    """Represents the query service"""
+    """Represents the query service."""
 
     _operation_proxy_type = QueryProxy
 
     def get_bindings(self) -> dict[str, _operation_proxy_type]:
-        """Method to get the query service bindings"""
+        """Method to get the query service bindings."""
         bindings = {}
         if not self.schema.query_type and not self.schema.query_type.fields:
             return bindings
@@ -328,32 +328,32 @@ class QueryServiceProxy(ServiceProxy):
         return bindings
 
     def execute(self, request: GraphQLRequest) -> GraphQLResponse:
-        """Send a query to the graphql server"""
+        """Send a query to the graphql server."""
         return self.backend.execute_query(request)
 
 
 class AsyncQueryServiceProxy(QueryServiceProxy, AsyncServiceProxy):
-    """Represents the async query service"""
+    """Represents the async query service."""
 
     _operation_proxy_type = AsyncQueryProxy
 
     # skipcq: PYL-W0236
     async def execute(self, request: GraphQLRequest) -> GraphQLResponse:
-        """Send a query asynchronously to the graphql server"""
+        """Send a query asynchronously to the graphql server."""
         return await await_if_coro(self.backend.execute_query(request))
 
 
 class MutationServiceProxy(ServiceProxy):
-    """Represents the mutation service"""
+    """Represents the mutation service."""
 
     _operation_proxy_type = MutationProxy
 
     def execute(self, request: GraphQLRequest) -> GraphQLResponse:
-        """Send a query to the graphql server"""
+        """Send a query to the graphql server."""
         return self.backend.execute_mutation(request)
 
     def get_bindings(self) -> dict[str, _operation_proxy_type]:
-        """Method to get the mutation service bindings"""
+        """Method to get the mutation service bindings."""
         bindings = {}
         if not self.schema.mutation_type and not self.schema.mutation_type.fields:
             return bindings
@@ -364,27 +364,27 @@ class MutationServiceProxy(ServiceProxy):
 
 
 class AsyncMutationServiceProxy(MutationServiceProxy, AsyncServiceProxy):
-    """Represents the async mutation service"""
+    """Represents the async mutation service."""
 
     _operation_proxy_type = AsyncMutationProxy
 
     # skipcq: PYL-W0236
     async def execute(self, request: GraphQLRequest) -> GraphQLResponse:
-        """Send a mutation asynchronously to the graphql server"""
+        """Send a mutation asynchronously to the graphql server."""
         return await await_if_coro(self.backend.execute_mutation(request))
 
 
 class SubscriptionServiceProxy(ServiceProxy):
-    """Represents the subscription service"""
+    """Represents the subscription service."""
 
     _operation_proxy_type = SubscriptionProxy
 
     def execute(self, request: GraphQLSubscriptionRequest) -> GraphQLResponse:
-        """Send a query to the graphql server"""
+        """Send a query to the graphql server."""
         return self.backend.execute_subscription(request)
 
     def get_bindings(self) -> dict[str, _operation_proxy_type]:
-        """Method to get the subscription service bindings
+        """Method to get the subscription service bindings.
 
         Returns:
             A dictionary with the service name bound to the subscription service proxy
@@ -399,11 +399,11 @@ class SubscriptionServiceProxy(ServiceProxy):
 
 
 class AsyncSubscriptionServiceProxy(SubscriptionServiceProxy, AsyncServiceProxy):
-    """Represents the async subscription service"""
+    """Represents the async subscription service."""
 
     _operation_proxy_type = AsyncSubscriptionProxy
 
     # skipcq: PYL-W0236
     async def execute(self, request: GraphQLSubscriptionRequest) -> GraphQLResponse:
-        """Send a subscription asynchronously to the graphql server"""
+        """Send a subscription asynchronously to the graphql server."""
         return await await_if_coro(self.backend.execute_subscription(request))

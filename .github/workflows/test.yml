@@ -1,8 +1,9 @@
-name: Qlient Core - Test
+name: Test
 
 on:
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
 
 jobs:
   test:
@@ -16,7 +17,7 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Install uv
         uses: astral-sh/setup-uv@v3
       - name: Set up Python ${{ matrix.python-version }}
@@ -35,7 +36,7 @@ jobs:
         run: |
           # Install deepsource CLI
           curl https://deepsource.io/cli | sh
-          
+
           # From the root directory, run the report coverage command
           ./bin/deepsource report --analyzer test-coverage --key python --value-file ./coverage.xml
 
