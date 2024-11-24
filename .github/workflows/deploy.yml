@@ -42,7 +42,7 @@ jobs:
         id: git-cliff
         with:
           config: cliff.toml
-          args: --verbose --tag="$QLIENT_NEW_VERSION" --unreleased
+          args: --verbose --tag="${{ env.QLIENT_NEW_VERSION }}" --unreleased
         env:
           OUTPUT: CHANGELOG.md
 
@@ -53,8 +53,8 @@ jobs:
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git tag $QLIENT_NEW_VERSION
-          git push origin $QLIENT_NEW_VERSION
+          git tag v${{ env.QLIENT_NEW_VERSION }}
+          git push origin v${{ env.QLIENT_NEW_VERSION }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -62,8 +62,8 @@ jobs:
         id: create_release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: $QLIENT_NEW_VERSION
-          name: $QLIENT_NEW_VERSION
+          tag_name: ${{ env.QLIENT_NEW_VERSION }}
+          name: ${{ env.QLIENT_NEW_VERSION }}
           draft: true
           prerelease: true
           body_path: CHANGELOG.md
