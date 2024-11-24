@@ -67,12 +67,12 @@ class AIOHTTPBackend(AsyncBackend):
         }
 
     def __init__(
-            self,
-            endpoint: str,
-            ws_endpoint: str | None = None,
-            session: aiohttp.ClientSession | None = None,
-            subscription_protocols: list[str] | None = None,
-            settings: AIOHTTPSettings | None = None,
+        self,
+        endpoint: str,
+        ws_endpoint: str | None = None,
+        session: aiohttp.ClientSession | None = None,
+        subscription_protocols: list[str] | None = None,
+        settings: AIOHTTPSettings | None = None,
     ):
         if settings is None:
             settings = AIOHTTPSettings()
@@ -128,12 +128,12 @@ class AIOHTTPBackend(AsyncBackend):
         logger.debug(f"Sending request: {payload_str}")
         async with self.session as session:
             async with session.post(
-                    self.endpoint,
-                    data=payload_str,
-                    headers={
-                        "Content-Type": "application/json; charset=utf-8",
-                        "Accept": "application/json; charset=utf-8",
-                    }
+                self.endpoint,
+                data=payload_str,
+                headers={
+                    "Content-Type": "application/json; charset=utf-8",
+                    "Accept": "application/json; charset=utf-8",
+                },
             ) as response:
                 response_str = await response.text()
                 response_body = self.settings.json_loads(response_str)
