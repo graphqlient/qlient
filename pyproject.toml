@@ -58,3 +58,12 @@ source = "vcs"
 [build-system]
 requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
+
+
+[tool.docformatter]
+recursive = true
+style = "google"
+black = true
+wrap-summaries = 120
+wrap-descriptions = 120
+exclude = [".venv", "venv", "tmp"]
