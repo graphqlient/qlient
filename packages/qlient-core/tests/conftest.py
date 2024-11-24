@@ -26,14 +26,12 @@ path_to_github_schema = schema_files_dir / "github_schema.json"
 
 @pytest.fixture(scope="session")
 def raw_swapi_schema():
-    with open(path_to_swapi_schema) as f:
-        return json.load(f)
+    return json.loads(path_to_swapi_schema.read_text())
 
 
 @pytest.fixture(scope="session")
 def raw_github_schema():
-    with open(path_to_github_schema) as f:
-        return json.load(f)
+    return json.loads(path_to_github_schema.read_text())
 
 
 @pytest.fixture

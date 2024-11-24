@@ -223,7 +223,6 @@ class RequestBuilder:
                 self.schema,
             )
 
-        #
         if _fields and isinstance(_fields, PreparedFields):
             query_builder.fields(_fields.__gql__())
 

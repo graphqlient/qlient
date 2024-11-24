@@ -1,12 +1,10 @@
 """This file contains the graphql http client."""
 
 import logging
-from typing import Union
 
 from qlient.core import Client, Backend
-
-from qlient.http.settings import HTTPSettings
 from qlient.http.backends import HTTPBackend
+from qlient.http.settings import HTTPSettings
 
 logger = logging.getLogger("qlient")
 

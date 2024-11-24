@@ -2,7 +2,7 @@
 
 import logging
 import uuid
-from typing import Dict, Any
+from typing import Any, cast
 from urllib.parse import urlparse, urlunparse, ParseResult
 
 import requests
@@ -51,7 +51,7 @@ class HTTPBackend(Backend):
             pr = pr._replace(scheme="ws")
         if pr.scheme == "https":
             pr = pr._replace(scheme="wss")
-        return urlunparse(pr)
+        return cast(str, urlunparse(pr))
 
     @classmethod
     def generate_subscription_id(cls) -> str:

@@ -1,11 +1,10 @@
 """This module contains the specific qlient.http models."""
 
-from typing import Optional
 from collections.abc import AsyncGenerator
 
 import websocket
-from qlient.core import GraphQLResponse, GraphQLSubscriptionRequest
 
+from qlient.core import GraphQLResponse, GraphQLSubscriptionRequest
 from qlient.http.consts import (
     CONNECTION_TERMINATE,
     CONNECTION_ERROR,

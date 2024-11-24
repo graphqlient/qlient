@@ -1,8 +1,8 @@
 """This file contains the settings that can be overwritten in the qlient Client."""
 
 import json
-from typing import Any
 from collections.abc import Callable
+from typing import Any
 
 from qlient.core import Settings
 
