@@ -1,4 +1,4 @@
-name: Python QA
+name: QA
 
 on:
   push:
